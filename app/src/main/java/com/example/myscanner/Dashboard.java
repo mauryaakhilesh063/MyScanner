@@ -46,7 +46,9 @@ public class Dashboard extends AppCompatActivity {
              WeatherDetails details=  gson.fromJson(response.toString(),WeatherDetails.class);
              String str = details.getWind().getSpeed();
              Log.e("Wind Speed",str);
-             ws.setText("Wind Speed is :"+ details.getWind().getSpeed());
+             latti.setText("Lattitude:" + details.getCoord().getLat());
+             langi.setText("Longitude"+details.getCoord().getLon());
+             ws.setText("Wind Speed :"+ details.getWind().getSpeed());
            }
        },
                new Response.ErrorListener() {
