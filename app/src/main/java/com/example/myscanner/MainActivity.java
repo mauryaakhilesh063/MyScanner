@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
-    Button button1,button2;
+    Button button1,button2,buttonRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         }
         button1 = findViewById(R.id.generateButton);
         button2 = findViewById(R.id.scanButton);
-        button1.setOnClickListener(new View.OnClickListener() {
+        buttonRegister = findViewById(R.id.registerUser);
+        button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, GenerateActivity.class);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 generateCode();
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         TextView password = (TextView) findViewById(R.id.password);
         Button submitButton = (Button) findViewById(R.id.submit);
         //admin authentication
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(userName.getText().toString().equals("admin") && password.getText().toString().equals("1111")){
@@ -64,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 }else
                     // incorrect
                 Toast.makeText(MainActivity.this,"Login Failed!!!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        buttonRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUsers();
             }
         });
     }
@@ -104,4 +112,9 @@ public class MainActivity extends AppCompatActivity {
         intentIntegrator.initiateScan();
     }
     private void scanCode() { }
+    private void registerUsers() {
+        Intent i2 = new Intent(MainActivity.this, registerUser.class);
+        startActivity(i2);
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
 }
